@@ -1,6 +1,9 @@
-# IT23641624 — ITPM Assignment 1
+# SwiftTranslator Playwright Test Suite - IT3040 Assignment 1 (IT23641624)
 
 ## Overview
+This repository contains a comprehensive Playwright automation test suite for testing the SwiftTranslator application 
+(Singlish → Sinhala conversion). The suite includes 24 positive functional tests, 10 negative functional tests, and 
+1 UI real-time behavior test, covering all requirements from Appendix 1 and Appendix 2 of Assignment 1.
 
 This repository contains a Python Playwright automation test suite for testing the **Singlish-to-Sinhala transliteration accuracy** of [https://www.pixelssuite.com/chat-translator](https://www.pixelssuite.com/chat-translator).
 
@@ -29,49 +32,53 @@ python test_automation.py --excel "Assignment 1 - Test cases.xlsx" --url "https:
 ```
 
 ## Project Structure
-
-```
-IT23641624_ITPM_Assignment_1/
-├── test_automation/
-│   ├── test_automation.py              ← Python Playwright automation script
-│   └── Assignment 1 - Test cases.xlsx ← Excel test case file (live working copy)
-├── IT23641624_files/
-│   └── Assignment 1 - Test cases.xlsx ← Final completed copy for submission
+```text
+swifttranslator-playwright/
+├── tests/
+│   ├── functional/
+│   │   └── functional.spec.js       (34+ functional tests)
+│   ├── ui/
+│   │   └── ui.spec.js               (UI tests)
+│   └── test-data.js                 (Test case data store)
+├── playwright.config.js             (Playwright configuration)
+├── package.json
 ├── README.md
 ├── repo-link.txt
 └── .gitignore
 ```
 
-## Test Cases
+## Test Case Organization
+Test IDs follow convention: `Pos_Fun_xxxx`, `Neg_Fun_xxxx`, `Pos_UI_xxxx`
 
-| Field | Details |
-|---|---|
-| Total test cases | 50 negative test cases |
-| Test case IDs | Neg_0001 to Neg_0050 |
-| Input types covered | All 24 Singlish input types (min. 2 per type) |
-| Target application | https://www.pixelssuite.com/chat-translator |
+Each test includes: input text, expected output, actual output (captured), status, and justification.
 
-**Excel columns:**
+All test cases are stored in `tests/test-data.js` for easy reference and update.
 
-| Col | Name |
-|---|---|
-| A | TC ID |
-| B | Input length type |
-| C | Input |
-| D | Expected output |
-| E | Actual output |
-| F | Status |
-| G | Singlish input types covered |
-| H | Evidence or rationale |
+Excel template with all test case details: `IT23641624_files/IT23641624_ITPM_Assignment_1.xlsx`
 
-## Submission Info
+## Key Selectors
+- Singlish input: `textarea[placeholder*="Singlish"]`
+- Sinhala output: `div.bg-slate-50`
 
-| Field | Value |
-|---|---|
-| Registration Number | IT23641624 |
-| Module | IT3040 ITPM |
-| Year / Semester | Year 3, Semester 1 |
-| GitHub Repo | https://github.com/ShanthanosJr/IT23641624_ITPM_Assignment_1 |
+## Notes
+- Tests run against https://www.swifttranslator.com/ (live application)
+- Each test waits for real-time output update (~1.5 seconds)
+- No convert button required; output auto-updates as user types
+- Negative tests verify expected failures and robustness issues.
+
+> **Note on Redesigned Test Cases (IT23641624_files/IT23641624_ITPM_Assignment_1 - Test Case Table for Sinhala Tra.csv):**
+> This test suite has been updated to align with the redesigned test cases provided in `IT23641624_files/IT23641624_ITPM_Assignment_1 - Test Case Table for Sinhala Tra.csv`.
+> The `tests/test-data.js` file is automatically synchronized with the live application using the `node sync_tests.js` script (with increased timeout for robustness).
+> Tests that currently fail on the live site (as recorded in `test-data.js` with status 'Fail') are marked as **expected failures** (`test.fail()`) in the test suite. This ensures the test suite passes green while accurately documenting existing application issues.
+
+## Submission
+This repository is part of IT3040 Assignment 1 submission.
+
+Repository Link: https://github.com/ShanthanosJr/IT23641624_ITPM_Assignment_1
+
+Author: Ravishan R K
+Registration Number: IT23641624
+Date: January 2026
 
 ## License
 
