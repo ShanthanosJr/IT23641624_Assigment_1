@@ -3,7 +3,7 @@ const testData = require('../test-data.js');
 
 // Helper function 
 async function translateAndGetOutput(page, inputText) {
-    await page.goto('https://www.swifttranslator.com/');
+    await page.goto('https://www.pixelssuite.com/chat-translator');
     const inputSelector = 'textarea[placeholder*="Singlish"]';
     const outputSelector = 'div.bg-slate-50';
 

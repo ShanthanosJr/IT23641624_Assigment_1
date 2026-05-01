@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('UI Functional Tests', () => {
     test('Pos_UI_0001 - Real-time update character by character', async ({ page }) => {
-        await page.goto('https://www.swifttranslator.com/');
+        await page.goto('https://www.pixelssuite.com/chat-translator');
         const inputSelector = 'textarea[placeholder*="Singlish"]';
         const outputSelector = 'div.bg-slate-50';
 

@@ -170,7 +170,15 @@ def _find_column_index(header_values: list, requested_name: str | None, candidat
         if n and n not in norm_to_index:
             norm_to_index[n] = i
 
-    def match(name: str) -> int | None:
+    def exact_match(name: str) -> int | None:
+        """Only match if the normalized header is exactly equal to the normalized name."""
+        n = _normalize_header(name)
+        if not n:
+            return None
+        return norm_to_index.get(n)
+
+    def fuzzy_match(name: str) -> int | None:
+        """Substring-based fallback: name contains header or header contains name."""
         n = _normalize_header(name)
         if not n:
             return None
@@ -182,12 +190,18 @@ def _find_column_index(header_values: list, requested_name: str | None, candidat
         return None
 
     if requested_name:
-        found = match(requested_name)
+        # When the user explicitly provides a column name, use exact match only
+        # to avoid accidentally hitting a column that merely *contains* the keyword.
+        found = exact_match(requested_name)
+        if found:
+            return found
+        # Also try the full normalized string as a last resort for explicit names
+        found = fuzzy_match(requested_name)
         if found:
             return found
 
     for c in candidates:
-        found = match(c)
+        found = fuzzy_match(c)
         if found:
             return found
 
